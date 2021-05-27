@@ -24,3 +24,12 @@ app.put('/', (req, res) => {
 app.delete('/', (req, res) => {
   res.send('DELETE')
 })
+
+//submit createAccount
+app.post('/account/:name/:email/:password', (req, res) => {
+  var name = req.params.name;
+  var email = req.params.email;
+  var password = req.params.password
+  res.send(`posted new user: ${name}, email: ${email}, password: ${password}!`)
+  // Database.createAccount(name, email, password)
+})
