@@ -17,3 +17,16 @@ connection.connect((err, res) => {
   }
 });
 
+module.exports = {
+  createAccount: function(name, email, password) {
+    var queryStr = ``
+    connection.query(queryStr, (err, res) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log('successfully called Databse.createAccount')
+      }
+    })
+  }
+
+}
