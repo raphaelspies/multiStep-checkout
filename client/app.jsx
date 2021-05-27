@@ -1,9 +1,10 @@
+// import axios from 'axios'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      whichScreen: "EnterPaymentInfo"
+      whichScreen: "CreateAccount"
     }
   }
 
@@ -11,7 +12,7 @@ class App extends React.Component {
     if (this.state.whichScreen === "CreateAccount") {
       return (
         <div>
-          <CreateAcount />
+          <CreateAccount />
         </div>
       )
     } else if (this.state.whichScreen === "EnterShippingInfo") {
@@ -29,26 +30,69 @@ class App extends React.Component {
     }
   }
 }
-//Form1
-var CreateAcount = () => {
-  var handleSubmit = (event) => {
+
+
+//Form1 NOTE -- password must be 15 or less characters long
+class CreateAccount extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      name: "",
+      email: "",
+      password: ""
+    }
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.enterName = this.enterName.bind(this);
+    this.enterEmail = this.enterEmail.bind(this);
+    this.enterPassword = this.enterPassword.bind(this);
+  }
+
+  handleSubmit(event) {
     console.log('create account clicked!')
     event.preventDefault()
+    axios.post(`/account/${this.state.name}/${this.state.email}/${this.state.password}`)
+    .then((res)=> {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   }
-  return (
-    <div id="createAccount">
-      <form>
-        <h2> Create Account: </h2>
-        <label htmlFor="createName" className="label">Name:</label>
-        <input id="createName" className ="inputField" placeholder="Enter name"></input> <br></br>
-        <label htmlFor="createEmail" className="label">Email: </label>
-        <input id="createEmail" className ="inputField" placeholder="Enter email address"></input> <br></br>
-        <label htmlFor="createEmail" className="label">Password: </label>
-        <input id="createPassword" className ="inputField" placeholder="Enter password"></input> <br></br><br></br>
-        <button id="createAccountButton" onClick={handleSubmit}>Submit</button> <br></br>
-      </form>
-    </div>
-  )
+
+  enterName(event) {
+    this.setState({ name: event.target.value })
+    console.log(this.state.name)
+  }
+
+  enterEmail(event) {
+    this.setState({ email: event.target.value })
+    console.log(this.state.email)
+  }
+
+  enterPassword(event) {
+    this.setState({ password: event.target.value })
+    console.log(this.state.password)
+  }
+
+  render() {
+    return (
+      <div id="createAccount">
+        <form>
+          <h2> Create Account: </h2>
+          <label htmlFor="createName" className="label">Name:</label>
+          <input id="createName" className ="inputField" placeholder="Enter name" onChange={this.enterName}></input> <br></br>
+
+          <label htmlFor="createEmail" className="label">Email: </label>
+          <input id="createEmail" className ="inputField" placeholder="Enter email address" onChange={this.enterEmail}></input> <br></br>
+
+          <label htmlFor="createEmail" className="label">Password: </label>
+          <input id="createPassword" className ="inputField" placeholder="Enter password" onChange={this.enterPassword}></input> <br></br><br></br>
+
+          <button id="createAccountButton" onClick={this.handleSubmit}>Submit</button> <br></br>
+        </form>
+      </div>
+    )
+  }
 }
 
 //Form2
