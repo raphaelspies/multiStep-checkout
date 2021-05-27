@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'password',
-  database: 'checkout'
+  database: 'multiCheckout'
 })
 
 connection.connect((err, res) => {

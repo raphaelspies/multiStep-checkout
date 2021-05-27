@@ -4,4 +4,25 @@ CREATE DATABASE checkout;
 
 USE checkout;
 
--- CREATE TABLE users
+CREATE TABLE users (
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  email VARCHAR(30) NOT NULL,
+  password VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE shippingInfo (
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  address1 NOT NULL VARCHAR(30),
+  address2 VARCHAR(30),
+  city VARCHAR(30) NOT NULL,
+  state CHAR(2) NOT NULL,
+  zip INT(9) NOT NULL
+);
+
+CREATE TABLE paymentInfo (
+  if INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  ccNo INT NOT NULL,
+  ccExpiry int(6) NOT NULL,
+  cvv int(4) NOT NULL,
+  billingZip int(9) NOT NULL
+);
