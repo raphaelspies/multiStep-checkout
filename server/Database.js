@@ -44,6 +44,20 @@ module.exports = {
         callback(null, res)
       }
     })
+  },
+
+  createPayment: function(ccNo, expiry, cvv, billingZip, callback) {
+    console.log('createPayment called!')
+    var queryStr = `INSERT INTO paymentInfo (ccNo, ccExpiry, cvv, billingZip) VALUES (${ccNo}, ${expiry}, ${cvv}, ${billingZip})`
+    connection.query(queryStr, (err, res) => {
+      if (err) {
+        console.log(err)
+        callback(err, null)
+      } else {
+        console.log('successfully called Database.createPayment')
+        callback(null, res)
+      }
+    })
   }
 
 } //end of module.exports

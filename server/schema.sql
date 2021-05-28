@@ -22,7 +22,7 @@ CREATE TABLE address (
 
 CREATE TABLE paymentInfo (
   payment_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  ccNo INT NOT NULL,
+  ccNo INT(20) NOT NULL,
   ccExpiry int(6) NOT NULL,
   cvv int(4) NOT NULL,
   billingZip int(9) NOT NULL
