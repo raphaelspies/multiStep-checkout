@@ -31,15 +31,28 @@ app.post('/account/:name/:email/:password', (req, res) => {
   var name = req.params.name;
   var email = req.params.email;
   var password = req.params.password;
-  Database.createAccount(name, email, password, (err, res)=> {
+  Database.createAccount(name, email, password, ((err, res)=> {
     if (err) {
       console.log(err)
     } else {
       console.log('successfully posted new user') //shows on server
     }
-  })
+  }))
       res.send('success!') //sent back to client
 })
 // , (req, res) => {  res.send('posted new user')
   // res.send(`posted new user: ${name}, email: ${email}, password: ${password}!`)
 // })
+
+app.post('/shipping/:address1/:address2/:city/:state/:zip', (req, res) => {
+  // ({address1, address2, city, state, zip} = req.params);
+  // console.log(address1);
+  Database.createAddress(req.params.address1, req.params.address2, req.params.city, req.params.state, req.params.zip,((err, res) => {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log('successfully posted new address') //shows on server
+    }
+  }))
+  res.send('success!');
+})

@@ -113,7 +113,7 @@ class EnterShippingInfo extends React.Component {
     super(props)
     this.state = {
       address1: "",
-      address2: "",
+      address2: "null",
       city: "",
       estate: "",
       zip: ""
@@ -155,8 +155,10 @@ class EnterShippingInfo extends React.Component {
   }
 
   enterState(event) {
-    this.setState({ estate: event.target.value })
-    console.log(this.state.estate)
+    if (this.state.estate.length <=2) {
+      this.setState({ estate: event.target.value })
+      console.log(this.state.estate)
+    }
   }
 
   enterZip(event) {

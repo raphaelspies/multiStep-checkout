@@ -30,6 +30,20 @@ module.exports = {
         callback(null, res)
       }
     })
+  },
+
+  createAddress: function(address1, address2, city, state, zip, callback) {
+    console.log('createAddress called!')
+    var queryStr = `INSERT INTO address (address1, address2, city, state, zip) VALUES ('${address1}','${address2}','${city}','${state}',${zip})`
+    connection.query(queryStr, (err, res) => {
+      if (err) {
+        console.log(err)
+        callback(err, null)
+      } else {
+        console.log('successfully called Database.createAddress')
+        callback(null, res)
+      }
+    })
   }
 
 } //end of module.exports
