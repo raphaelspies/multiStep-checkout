@@ -18,15 +18,18 @@ connection.connect((err, res) => {
 });
 
 module.exports = {
-  createAccount: function(name, email, password) {
-    var queryStr = ``
+  createAccount: function(name, email, password, callback) {
+    console.log('createAccount called!')
+    var queryStr = `INSERT INTO users (name, email, password) VALUES ('${name}','${email}','${password}')`
     connection.query(queryStr, (err, res) => {
       if (err) {
         console.log(err)
+        callback(err, null)
       } else {
-        console.log('successfully called Databse.createAccount')
+        console.log('successfully called Database.createAccount')
+        callback(null, res)
       }
     })
   }
 
-}
+} //end of module.exports

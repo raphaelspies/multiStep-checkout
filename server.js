@@ -29,7 +29,16 @@ app.delete('/', (req, res) => {
 app.post('/account/:name/:email/:password', (req, res) => {
   var name = req.params.name;
   var email = req.params.email;
-  var password = req.params.password
-  res.send(`posted new user: ${name}, email: ${email}, password: ${password}!`)
-  // Database.createAccount(name, email, password)
+  var password = req.params.password;
+  Database.createAccount(name, email, password, (err, res)=> {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log('successfully posted new user') //shows on server
+    }
+  })
+      res.send('success!') //sent back to client
 })
+// , (req, res) => {  res.send('posted new user')
+  // res.send(`posted new user: ${name}, email: ${email}, password: ${password}!`)
+// })
