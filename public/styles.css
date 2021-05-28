@@ -1,0 +1,16 @@
+.inputField {
+  position: fixed;
+  left: 150px;
+  /* color: red; */
+}
+
+.label {
+  font-weight: bold;
+  /* margin: 10px; */
+  color: green;
+}
+
+H2 {
+  color: darkgreen;
+  /* font-style: italic; */
+}
