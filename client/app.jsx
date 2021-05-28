@@ -155,15 +155,17 @@ class EnterShippingInfo extends React.Component {
   }
 
   enterState(event) {
-    if (this.state.estate.length <=2) {
+    if (this.state.estate.length <2) {
       this.setState({ estate: event.target.value })
       console.log(this.state.estate)
     }
   }
 
   enterZip(event) {
-    this.setState({ zip: event.target.value })
-    console.log(this.state.zip)
+    if (this.state.zip.length < 9) {
+      this.setState({ zip: event.target.value })
+      console.log(this.state.zip)
+    }
   }
 
   render() {
