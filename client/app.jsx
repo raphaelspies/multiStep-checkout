@@ -3,7 +3,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      whichScreen: "EnterShippingInfo"
+      whichScreen: "EnterPaymentInfo"
     }
     this.loadNext = this.loadNext.bind(this);
   }
@@ -158,13 +158,17 @@ class EnterShippingInfo extends React.Component {
     if (this.state.estate.length <2) {
       this.setState({ estate: event.target.value })
       console.log(this.state.estate)
+    } else {
+      console.log("error: must be 2 characters or less")
     }
   }
 
   enterZip(event) {
     if (this.state.zip.length < 9) {
-      this.setState({ zip: event.target.value })
+      this.setState({ zip: parseInt(event.target.value) })
       console.log(this.state.zip)
+    } else {
+      console.log("error: must be 9 digits or less")
     }
   }
 
@@ -196,31 +200,81 @@ class EnterShippingInfo extends React.Component {
 } //end Form2
 
 //Form3
-var EnterPaymentInfo = () => {
-  var handleSubmit = (event) => {
+class EnterPaymentInfo extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      ccNo: "",
+      ccExpiry: "",
+      CVV: "",
+      billingZip: ""
+    }
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.enterCCNo = this.enterCCNo.bind(this);
+    this.enterCCExpiry = this.enterCCExpiry.bind(this);
+    this.enterCVV = this.enterCVV.bind(this);
+    this.enterBillingZip = this.enterBillingZip.bind(this);
+  }
+
+  handleSubmit(event) {
     console.log('Submit Payment clicked!')
     event.preventDefault()
   }
-  return (
-    <div id="enterPaymentInfo">
-      <form>
-        <h2> Enter Payment Info: </h2>
-        <label htmlFor="ccNo" className="label">Enter CC Number:</label>
-        <input id="ccNo" className ="inputField" placeholder="Enter Credit Card Number"></input> <br></br>
 
-        <label htmlFor="ccExpiry" className="label">Enter Expiration: </label>
-        <input id="ccExpiry" className ="inputField" placeholder="MM/YYYY"></input> <br></br>
+  enterCCNo(event) {
+    this.setState({ ccNo: parseInt(event.target.value) })
+    console.log(this.state.ccNo)
+  }
 
-        <label htmlFor="enterCVV" className="label">CVV: </label>
-        <input id="enterCVV" className ="inputField" placeholder="CVV"></input> <br></br>
+  enterCCExpiry(event) {
+    // if (this.state.ccExpiry.length < 6) {
+      this.setState({ ccExpiry: parseInt(event.target.value) })
+      console.log(this.state.ccExpiry)
+    // } else {
+    //   console.log("error: must be 6 digits or less")
+    // }
+  }
 
-        <label htmlFor="billingZip" className="label">Zip Code: </label>
-        <input id="billingZip" className ="inputField" placeholder="Enter zip code"></input> <br></br> <br></br>
+  enterCVV(event) {
+    // if (this.state.CVV.length < 4) {
+      this.setState({ CVV: parseInt(event.target.value) })
+      console.log(this.state.CVV)
+    // } else {
+    //   console.log("error: must be 4 digits or less")
+    // }
+  }
 
-        <button id="submitPaymentButton" onClick={handleSubmit}>Submit Payment</button> <br></br>
-      </form>
-    </div>
-  )
+  enterBillingZip(event) {
+    // if (this.state.billingZip.length < 9) {
+      this.setState({ billingZip: parseInt(event.target.value) })
+      console.log(this.state.billingZip)
+    // } else {
+    //   console.log("error: must be 9 digits or less")
+    // }
+  }
+
+  render() {
+    return (
+      <div id="enterPaymentInfo">
+        <form>
+          <h2> Enter Payment Info: </h2>
+          <label htmlFor="ccNo" className="label">Enter CC Number:</label>
+          <input id="ccNo" className ="inputField" placeholder="Enter Credit Card Number" onChange={this.enterCCNo}></input> <br></br>
+
+          <label htmlFor="ccExpiry" className="label">Enter Expiration: </label>
+          <input id="ccExpiry" className ="inputField" placeholder="MM/YYYY" onChange={this.enterCCExpiry}></input> <br></br>
+
+          <label htmlFor="enterCVV" className="label">CVV: </label>
+          <input id="enterCVV" className ="inputField" placeholder="CVV" onChange={this.enterCVV}></input> <br></br>
+
+          <label htmlFor="billingZip" className="label">Zip Code: </label>
+          <input id="billingZip" className ="inputField" placeholder="Enter zip code" onChange={this.enterBillingZip}></input> <br></br> <br></br>
+
+          <button id="submitPaymentButton" onClick={this.handleSubmit}>Submit Payment</button> <br></br>
+        </form>
+      </div>
+    )
+  }
 } // end Form3
 
 ReactDOM.render(<App />, document.getElementById("root"))
