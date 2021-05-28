@@ -6,13 +6,21 @@ class App extends React.Component {
     this.state = {
       whichScreen: "CreateAccount"
     }
+    this.loadNext = this.loadNext.bind(this);
+  }
+
+  loadNext(input) {
+    console.log('app says changeState!')
+    this.setState({
+      whichScreen: input
+    })
   }
 
   render() {
     if (this.state.whichScreen === "CreateAccount") {
       return (
         <div>
-          <CreateAccount />
+          <CreateAccount loadNext={this.loadNext}/>
         </div>
       )
     } else if (this.state.whichScreen === "EnterShippingInfo") {
@@ -51,13 +59,15 @@ class CreateAccount extends React.Component {
     console.log('create account clicked!')
     event.preventDefault()
     axios.post(`/account/${this.state.name}/${this.state.email}/${this.state.password}`)
-    .then((res)=> {
-      console.log(res)
-    })
     .catch((err) => {
       console.log(err)
     })
-  }
+    .then((res)=> {
+      console.log(res)
+      this.props.loadNext("EnterShippingInfo")
+    });
+}
+
 
   enterName(event) {
     this.setState({ name: event.target.value })
@@ -89,6 +99,9 @@ class CreateAccount extends React.Component {
           <input id="createPassword" className ="inputField" placeholder="Enter password" onChange={this.enterPassword}></input> <br></br><br></br>
 
           <button id="createAccountButton" onClick={this.handleSubmit}>Submit</button> <br></br>
+
+          {/* <button id="createAccountButton" onClick={this.handleSubmit} onSubmit={ () => this.props.loadNext("EnterShippingInfo")}>Submit</button> <br></br> */}
+
         </form>
       </div>
     )
